@@ -1,0 +1,1 @@
+export const employee=[{id:'1',name:'John', surname:'Doe', position:'Developer',email:'johndoe@cap.com'}, {id:'2',name:'Ela', surname:'Joe', position:'Tester',email:'elajoe@cap.com'}, {id:'3',name:'Jack', surname:'Sparrow', position:'Project Manager',email:'jacksparrow@cap.com'}];
