@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button :type="props.type" :class="props.mode" class="btn" :disabled="props.isDisabled">
+    <button :type="props.type" :class="props.mode" class="btn" :disabled="props.isDisabled" data-test="button">
       <slot>
       </slot>
     </button>

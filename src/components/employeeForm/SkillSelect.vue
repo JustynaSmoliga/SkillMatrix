@@ -1,5 +1,6 @@
 <template>
-  <select :class="[{ 'select--active': isChecked}, { 'select--short': !level }, 'select']" @change="toggleChecked" v-model="level">
+  <select :class="[{ 'select--active': isChecked }, { 'select--short': !level }, 'select']" @change="toggleChecked"
+    v-model="level" data-test="skill-select">
     <!-- <select @change="toggleChecked" v-model="level"> -->
 
     <!-- <option value='' selected :hidden=!isChecked>{{ isChecked ? '❌' : props.editedEmployeeSkill }}</option>
@@ -11,7 +12,7 @@
     <option value="beginner">{{ nameOfSkill }} - {{ SkillLevel.BEGINNER }}</option>
     <option value="intermediate">{{ nameOfSkill }} - {{ SkillLevel.INTERMEDIATE }}</option>
     <option value="advanced">{{ nameOfSkill }} - {{ SkillLevel.ADVANCED }}</option>
-    
+
     <!-- <option value="beginner">{{ SkillLevel.BEGINNER }}</option>
     <option value="advanced">{{ SkillLevel.ADVANCED }}</option> -->
   </select>
@@ -20,19 +21,19 @@
 <script setup>
 import { ref, defineModel } from 'vue';
 import { SkillLevel } from '@/stores/employeeStore';
-const props = defineProps({id: String, nameOfSkill:String})
+const props = defineProps({ id: String, nameOfSkill: String })
 const level = defineModel('level');
 // const skillName = defineModel('skillName');
 
-const isChecked = ref(level.value!==''?true:false);
+const isChecked = ref(level.value !== '' ? true : false);
 
 
-const emit =defineEmits(['skill-selected']);
+const emit = defineEmits(['skill-selected']);
 
 function toggleChecked() {
   if (level.value !== '') {
     isChecked.value = true;
-    emit('skill-selected',props.nameOfSkill,level.value, props.id);
+    emit('skill-selected', props.nameOfSkill, level.value, props.id);
 
   } else {
     isChecked.value = false;
@@ -65,7 +66,7 @@ function toggleChecked() {
     border: 1.5px solid $color-primary;
   }
 
-  &:focus{
+  &:focus {
     outline: none;
   }
 
