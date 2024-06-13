@@ -1,15 +1,22 @@
 <template>
     <div class="buttons-section">
-        <BaseButton mode="btn--primary" @click="removeEmployees">Remove</BaseButton>
-        <BaseButton mode="btn--primary" @click="openAddEmployeeForm">Add</BaseButton>
-        <BaseButton mode="btn--primary" @click="openEditEmployeeForm" :isDisabled="props.isDisabled">Edit</BaseButton>
+        <BaseButton mode="btn--primary" @click="removeEmployees"
+            :isDisabled="isFormOpen || props.amountOfSelectedItems === 0">Remove
+        </BaseButton>
+        <BaseButton mode="btn--primary" @click="openAddEmployeeForm"
+            :isDisabled="isFormOpen || props.amountOfSelectedItems !== 0">Add
+        </BaseButton>
+        <BaseButton mode="btn--primary" @click="openEditEmployeeForm"
+            :isDisabled="isFormOpen || props.amountOfSelectedItems !== 1">
+            Edit
+        </BaseButton>
     </div>
 </template>
 
 <script setup>
 import BaseButton from '../UI/BaseButton.vue';
 const emit = defineEmits(['remove-employees', 'open-employee-form']);
-const props=defineProps({isDisabled:Boolean});
+const props = defineProps({ amountOfSelectedItems: Number, isFormOpen: Boolean });
 
 function removeEmployees() {
     emit('remove-employees');
@@ -20,11 +27,9 @@ function openAddEmployeeForm() {
 }
 
 function openEditEmployeeForm() {
-    if(props.isDisabled===false){
-        emit('open-employee-form', 'Edit');
-    }
-    return;
+    emit('open-employee-form', 'Edit');
 }
+
 
 </script>
 

@@ -33,13 +33,9 @@
                 <p>{{ errors.email }}</p>
             </div>
             <div class="form__skills">
-                <!-- <Field as="skill-select" type="select" name="skillselect" value='' v-for="skill in SkillName" :key="skill" :skill="skill"  @skill-selected="selectSkill" :editedEmployeeSkill="props.editedEmployee?.skills.find(employeeSkill => skill === employeeSkill.name )"/> -->
-                    <!-- <SkillSelect v-for="skill in SkillName" name="skills" :key="skill" :skill="skill" @skill-selected="selectSkill" :editedEmployeeSkill="fields.find(employeeSkill => skill === employeeSkill.name )"></SkillSelect> -->
-                    <SkillSelect v-for="(field, idx) in fields" name="skills" :key="field.key" @skill-selected="selectSkill" v-model:level="field.value.level" :nameOfSkill="field.value.name" :id="idx"></SkillSelect>
-                    
-
-                    <!-- <SkillSelect v-for="skill in SkillName" name="skills" :key="skill" :skill="skill" @skill-selected="selectSkill" v-model="fields.find(employeeSkill => skill === employeeSkill.name )"></SkillSelect> -->
-                </div>
+                <SkillSelect v-for="(field, idx) in fields" name="skills" :key="field.key" @skill-selected="selectSkill"
+                    v-model:level="field.value.level" :nameOfSkill="field.value.name" :id="idx"></SkillSelect>
+            </div>
         </div>
         <div class="form__buttons">
             <BaseButton :type="submit" mode="btn--primary">{{ props.mode }}</BaseButton>
@@ -51,7 +47,7 @@
 </template>
 
 <script setup>
-import { useForm, useFieldArray} from 'vee-validate';
+import { useForm, useFieldArray } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
 import { ref } from 'vue';
@@ -59,7 +55,7 @@ import { employeeSkills } from '@/stores/employeeStore';
 import BaseButton from '../UI/BaseButton.vue';
 import SkillSelect from './SkillSelect.vue';
 
-const props = defineProps({ mode: String, addEmployee: Function, onSubmitEditEmployee:Function, openForm: Function, closeForm: Function, editedEmployee: Object })
+const props = defineProps({ mode: String, addEmployee: Function, onSubmitEditEmployee: Function, openForm: Function, closeForm: Function, editedEmployee: Object })
 
 const { values, errors, defineField, handleSubmit } = useForm({
     validationSchema: toTypedSchema(yup.object({
@@ -68,57 +64,40 @@ const { values, errors, defineField, handleSubmit } = useForm({
         email: yup.string().email().required(),
     }),),
     initialValues: {
-        name: props.editedEmployee?props.editedEmployee.name:'',
-        surname: props.editedEmployee?props.editedEmployee.surname:'',
-        email: props.editedEmployee?props.editedEmployee.email:'',
-        position:props.editedEmployee?props.editedEmployee.position.toLowerCase():'developer',   
-        skills:props.editedEmployee? props.editedEmployee.skills :  employeeSkills,
-    // {name:SkillName.ANGULAR, level:SkillLevel.BEGINNER},  
-    // {name:SkillName.VUEJS, level:SkillLevel.BEGINNER}, 
-    // {name:SkillName.TS, level:SkillLevel.BEGINNER}, 
-    // {name:SkillName.JS, level:SkillLevel.BEGINNER}, 
-    // {name:SkillName.REACT, level:SkillLevel.INTERMEDIATE}, 
-    // {name:SkillName.SITECORE, level:SkillLevel.BEGINNER}],
+        name: props.editedEmployee ? props.editedEmployee.name : '',
+        surname: props.editedEmployee ? props.editedEmployee.surname : '',
+        email: props.editedEmployee ? props.editedEmployee.email : '',
+        position: props.editedEmployee ? props.editedEmployee.position.toLowerCase() : 'developer',
+        skills: props.editedEmployee ? props.editedEmployee.skills : employeeSkills
     }
 });
 const [name, nameAttrs] = defineField('name', state => { return { validateOnModelUpdate: state.errors.length > 0 } });
 const [surname, surnameAttrs] = defineField('surname');
 const [email, emailAttrs] = defineField('email');
 const [position, positionAttrs] = defineField('position');
-const {fields, update}=useFieldArray('skills');
+const { fields, update } = useFieldArray('skills');
 
-const choosenSkills = ref([]);
-// if (props.mode === 'Edit') {
-//     setValues({
-//         name:props.editedEmployee.name,surname: props.editedEmployee.surname, email: props.editedEmployee.email, position: props.editedEmployee.position.toLowerCase()
-//     })
-// }
-// const{push}=useFieldArray('skills');
 
-const onSubmit=handleSubmit(values=>{
-    props.mode === 'Add' ? submitAddEmployeeForm() : submitEditEmployeeForm(values);
+const onSubmit = handleSubmit(values => {
+    props.mode === 'Add' ? submitAddEmployeeForm(values) : submitEditEmployeeForm(values);
 });
 
-function submitAddEmployeeForm() {
-    const newEmployee = { id: Date.now(), name: name.value, surname: surname.value, position: position.value, email: email.value, skills:fields };
+function submitAddEmployeeForm(values) {
+    const newEmployee = { id: Date.now(), name: values.name, surname: values.surname, position: values.position, email: values.email, skills: values.skills };
     props.addEmployee(newEmployee);
     props.closeForm();
 }
 
 function submitEditEmployeeForm(values) {
-    
+
     alert('edit form submitted');
-    props.onSubmitEditEmployee(values,props.editedEmployee.id);
+    props.onSubmitEditEmployee(values, props.editedEmployee.id);
     props.closeForm();
 }
 
 function selectSkill(skillName, selectedValue, id) {
     const selectedSkillObject = { name: skillName, level: selectedValue };
     update(id, selectedSkillObject);
-    console.log(fields.value);
-    console.log(fields);
-    choosenSkills.value.push(selectedSkillObject);
-    // setValues({selectedSkills:selectedSkills.push(selectedSkillObject)})
 }
 
 </script>
