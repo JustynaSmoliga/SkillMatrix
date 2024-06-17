@@ -39,7 +39,7 @@
         </div>
         <div class="form__buttons">
             <BaseButton :type="submit" mode="btn--primary">{{ props.mode }}</BaseButton>
-            <BaseButton :type="button" mode="btn--secondary" @click="props.closeForm">Close</BaseButton>
+            <BaseButton :type="button" mode="btn--secondary" @click="emit('close-form')">Close</BaseButton>
         </div>
     </form>
     <pre>VALUES: {{ values }}</pre>
@@ -50,12 +50,12 @@
 import { useForm, useFieldArray } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
-import { ref } from 'vue';
 import { employeeSkills } from '@/stores/employeeStore';
 import BaseButton from '../UI/BaseButton.vue';
 import SkillSelect from './SkillSelect.vue';
 
-const props = defineProps({ mode: String, addEmployee: Function, onSubmitEditEmployee: Function, openForm: Function, closeForm: Function, editedEmployee: Object })
+const props = defineProps({ mode: String, editedEmployee: Object });
+const emit = defineEmits(['close-form', 'add-employee', 'edit-employee']);
 
 const { values, errors, defineField, handleSubmit } = useForm({
     validationSchema: toTypedSchema(yup.object({
@@ -84,15 +84,12 @@ const onSubmit = handleSubmit(values => {
 
 function submitAddEmployeeForm(values) {
     const newEmployee = { id: Date.now(), name: values.name, surname: values.surname, position: values.position, email: values.email, skills: values.skills };
-    props.addEmployee(newEmployee);
-    props.closeForm();
+    emit('add-employee', newEmployee);
 }
 
 function submitEditEmployeeForm(values) {
-
     alert('edit form submitted');
-    props.onSubmitEditEmployee(values, props.editedEmployee.id);
-    props.closeForm();
+    emit('edit-employee', values, props.editedEmployee.id)
 }
 
 function selectSkill(skillName, selectedValue, id) {

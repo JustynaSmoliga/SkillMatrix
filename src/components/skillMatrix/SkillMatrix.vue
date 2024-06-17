@@ -12,8 +12,9 @@
         :amountOfSelectedItems="selectedListItemIds.length" :isFormOpen="isFormOpen" />
     </div>
     <BaseCard class="form-container" v-if="isFormOpen">
-      <EmployeeForm :mode="employeeFormMode" :addEmployee="addEmployee" :onSubmitEditEmployee="onSubmitEditEmployee"
-        :openForm="openForm" :closeForm="closeForm" :editedEmployee="editedEmployee"></EmployeeForm>
+      <EmployeeForm :mode="employeeFormMode" :editedEmployee="editedEmployee" @add-employee="addEmployee"
+        @edit-employee="onSubmitEditEmployee" @close-form="closeForm">
+      </EmployeeForm>
     </BaseCard>
   </div>
 </template>
@@ -40,7 +41,6 @@ const employeeFormMode = ref('Add');
 const editedEmployee = computed(() => {
   return employees.getEmployee(selectedListItemIds.value[0]);
 })
-
 
 const areCheckboxesDisabled = computed(() => {
   return isFormOpen.value;
@@ -76,10 +76,12 @@ function removeEmployees() {
 
 function addEmployee(employee) {
   employees.addEmployee(employee);
+  closeForm();
 }
 
 function onSubmitEditEmployee(editedEmployeeValues, editedEmployeeId) {
   employees.editEmployee(editedEmployeeValues, editedEmployeeId);
+  closeForm();
 }
 
 function openForm(mode) {
