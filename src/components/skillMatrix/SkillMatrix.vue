@@ -6,14 +6,14 @@
       </BaseCard>
       <BaseCard>
         <TheEmployeesTable :employees="filterEmployee(nameFilter, surnameFilter, positionFilter)"
-          :toggleSelectedListItem="toggleSelectedListItem" :areCheckboxesDisabled="areCheckboxesDisabled" />
+          :areCheckboxesDisabled="areCheckboxesDisabled" />
       </BaseCard>
       <TheButtonsSection @remove-employees="removeEmployees" @open-employee-form="openForm"
         :amountOfSelectedItems="selectedListItemIds.length" :isFormOpen="isFormOpen" />
     </div>
     <BaseCard class="form-container" v-if="isFormOpen">
-      <EmployeeForm :mode="employeeFormMode" :editedEmployee="editedEmployee" @add-employee="addEmployee"
-        @edit-employee="onSubmitEditEmployee" @close-form="closeForm">
+      <EmployeeForm :mode="employeeFormMode" :editedEmployee @add-employee="addEmployee" @edit-employee="editEmployee"
+        @close-form="closeForm">
       </EmployeeForm>
     </BaseCard>
   </div>
@@ -22,7 +22,7 @@
 <script setup>
 import { useEmployeeStore } from '@/stores/employeeStore.js';
 import { storeToRefs } from 'pinia';
-import { ref, computed } from 'vue';
+import { ref, computed, provide } from 'vue';
 import BaseCard from '../UI/BaseCard.vue';
 import TheFilter from '../filter/TheFilter.vue';
 import TheEmployeesTable from '../employeesTable/TheEmployeesTable.vue';
@@ -37,6 +37,7 @@ const positionFilter = ref('');
 const selectedListItemIds = ref([]);
 const isFormOpen = ref(false);
 const employeeFormMode = ref('Add');
+provide('toggleSelectedListItem', toggleSelectedListItem);
 
 const editedEmployee = computed(() => {
   return employees.getEmployee(selectedListItemIds.value[0]);
@@ -58,10 +59,9 @@ function removeFilters() {
   positionFilter.value = '';
 }
 
-function toggleSelectedListItem(isChecked, listItemId) {
+function toggleSelectedListItem(listItemId) {
   const isIdAlreadySelected = selectedListItemIds.value.includes(listItemId);
   if (!isIdAlreadySelected) {
-    // if (isChecked && !isIdAlreadySelected) {
     selectedListItemIds.value.push(listItemId);
 
   } else {
@@ -79,17 +79,17 @@ function addEmployee(employee) {
   closeForm();
 }
 
-function onSubmitEditEmployee(editedEmployeeValues, editedEmployeeId) {
+function editEmployee(editedEmployeeValues, editedEmployeeId) {
   employees.editEmployee(editedEmployeeValues, editedEmployeeId);
   closeForm();
 }
 
 function openForm(mode) {
-
   closeForm();
   employeeFormMode.value = mode;
   isFormOpen.value = true;
 }
+
 function closeForm() {
   isFormOpen.value = false;
 }

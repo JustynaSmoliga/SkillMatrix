@@ -1,6 +1,7 @@
 <template>
     <tr @click="toggleUserSkills" class="employee-table__item">
-        <td><input type='checkbox' v-model="isChecked" @click="toggleItemSelected" :disabled="props.isCheckboxDisabled"></td>
+        <td><input type='checkbox' v-model="isChecked" @click="toggleItemSelected" :disabled="props.isCheckboxDisabled">
+        </td>
         <td>{{ props.employee.id }}</td>
         <td>{{ props.employee.name }}</td>
         <td>{{ props.employee.surname }}</td>
@@ -12,13 +13,14 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
 import SkillsSection from '@/components/employeesTable/SkillsSection.vue';
 let areSkillsShown = ref(false);
 
-const props = defineProps({ employee: {}, isCheckboxDisabled:Boolean })
-const emit = defineEmits(['toggle-selected-items']);
+const props = defineProps({ employee: {}, isCheckboxDisabled: Boolean })
+const toggleSelectedListItem = inject('toggleSelectedListItem');
 const isChecked = ref(false);
+
 
 function toggleUserSkills(event) {
     if (event.target.nodeName === 'TD') {
@@ -30,22 +32,23 @@ function toggleUserSkills(event) {
 
 function toggleItemSelected() {
     isChecked.value = !isChecked.value;
-    emit('toggle-selected-items', isChecked.value, props.employee.id)
+    toggleSelectedListItem(props.employee.id);
+
 }
 
 </script>
 
 <style scoped lang="scss">
 @import '../../assets/scss/variables';
-$background-color-item:#eff6fd;
+$background-color-item: #eff6fd;
 
 .employee-table__item {
 
-    &:hover{
-    background-color: $background-color-item;
-    cursor: pointer;
+    &:hover {
+        background-color: $background-color-item;
+        cursor: pointer;
     }
-   
+
 }
 
 td {

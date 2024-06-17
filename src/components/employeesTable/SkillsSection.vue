@@ -1,37 +1,37 @@
 <template>
-    <tr>
-        <td>
-            <SkillButton v-for="skill in props.skills" :key="skill.name" :name="skill.name" :level="skill.level"> </SkillButton>
+    <tr class="skills-section">
+        <td class="skills-section__td">
+            <p v-if="props.skills.length === 0" class="skills-section__paragraph">No skills added</p>
+            <SkillButton v-else v-for="skill in props.skills" :key="skill.name" :name="skill.name" :level="skill.level">
+            </SkillButton>
         </td>
     </tr>
 </template>
 
 <script setup>
 import SkillButton from './SkillButton.vue';
-import {SkillLevel, SkillName} from '@/stores/employeeStore';
 
-const props = defineProps({ skills:{type:Array, default:()=>[{name:SkillName.NONE, level:SkillLevel.NONE}]} })
-
-
-
+const props = defineProps({ skills: Array })
 
 </script>
 
 <style scoped lang="scss">
 @import '../../assets/scss/variables';
-td{
-    display: flex;
-    flex-direction: row;
-    min-height: 5em;
-    padding: 1em;
 
-    
-}
-tr{
-  border-top: $table-border;
-  border-bottom: $table-border;
-  flex-wrap: wrap;
-  width: inherit;
+.skills-section {
+    border-top: $table-border;
+    border-bottom: $table-border;
+    flex-wrap: wrap;
+    width: inherit;
 
+    &__td {
+        display: flex;
+        flex-direction: row;
+        padding: 1em;
+    }
+
+    &__paragraph {
+        font-size: 0.85rem;
+    }
 }
 </style>
