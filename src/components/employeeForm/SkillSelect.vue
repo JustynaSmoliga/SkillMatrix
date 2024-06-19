@@ -1,7 +1,6 @@
 <template>
   <select :class="[{ 'select--active': isChecked }, { 'select--short': !level }, 'select']" @change="toggleChecked"
     v-model="level" data-test="skill-select">
-
     <option value='' selected :hidden=!isChecked>{{ level ? '❌' : nameOfSkill }}</option>
     <option value="beginner">{{ nameOfSkill }} - {{ SkillLevel.BEGINNER }}</option>
     <option value="intermediate">{{ nameOfSkill }} - {{ SkillLevel.INTERMEDIATE }}</option>

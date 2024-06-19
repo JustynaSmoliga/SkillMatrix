@@ -1,8 +1,10 @@
 <template>
-    <tr class="skills-section">
+    <tr class="skills-section" data-test="skills-section">
         <td class="skills-section__td">
-            <p v-if="props.skills.length === 0" class="skills-section__paragraph">No skills added</p>
-            <SkillButton v-else v-for="skill in props.skills" :key="skill.name" :name="skill.name" :level="skill.level">
+            <p v-if="props.skills.length === 0" class="skills-section__paragraph" data-test="paragraph">No skills added
+            </p>
+            <SkillButton v-else v-for="skill in props.skills" :key="skill.name" :name="skill.name" :level="skill.level"
+                data-test="skill-button">
             </SkillButton>
         </td>
     </tr>

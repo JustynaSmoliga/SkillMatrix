@@ -1,7 +1,7 @@
 <template>
-  <div class="btn">
+  <div class="btn" data-test="btn">
     <button class="btn--primary">{{ props.name }}</button>
-    <span class="btn--primary__tooltiptext">{{ props.level }}</span>
+    <span class="btn--primary__tooltiptext" data-test="tooltiptext">{{ props.level }}</span>
   </div>
 </template>
 
