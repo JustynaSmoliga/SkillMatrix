@@ -50,7 +50,7 @@
 import { useForm, useFieldArray } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
-import { employeeSkills } from '@/stores/employeeStore';
+import { employeeSkills } from '@/stores/employeesStore';
 import BaseButton from '../UI/BaseButton.vue';
 import SkillSelect from './SkillSelect.vue';
 

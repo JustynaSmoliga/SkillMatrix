@@ -1,12 +1,12 @@
 <template>
     <div class="buttons-section">
-        <BaseButton mode="btn--primary" @click="removeEmployees"
+        <BaseButton mode="btn--primary" data-test="btn-remove" @click="removeEmployees"
             :isDisabled="isFormOpen || props.amountOfSelectedItems === 0">Remove
         </BaseButton>
-        <BaseButton mode="btn--primary" @click="openAddEmployeeForm"
+        <BaseButton mode="btn--primary" data-test="btn-add" @click="openAddEmployeeForm"
             :isDisabled="isFormOpen || props.amountOfSelectedItems !== 0">Add
         </BaseButton>
-        <BaseButton mode="btn--primary" @click="openEditEmployeeForm"
+        <BaseButton mode="btn--primary" data-test="btn-edit" @click="openEditEmployeeForm"
             :isDisabled="isFormOpen || props.amountOfSelectedItems !== 1">
             Edit
         </BaseButton>

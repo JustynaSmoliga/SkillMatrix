@@ -10,7 +10,7 @@
 
 <script setup>
 import { ref, defineModel } from 'vue';
-import { SkillLevel } from '@/stores/employeeStore';
+import { SkillLevel } from '@/stores/employeesStore';
 const props = defineProps({ id: String, nameOfSkill: String })
 const level = defineModel('level');
 

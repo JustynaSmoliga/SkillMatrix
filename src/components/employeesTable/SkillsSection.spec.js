@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import SkillsSection from './SkillsSection.vue';
-import { SkillName, SkillLevel } from '@/stores/employeeStore';
+import { SkillName, SkillLevel } from '@/stores/employeesStore';
 
 describe('SkillsSection', () => {
 

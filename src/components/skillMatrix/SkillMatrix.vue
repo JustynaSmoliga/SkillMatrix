@@ -2,14 +2,14 @@
   <div class="main-container">
     <div class="table-container">
       <BaseCard>
-        <TheFilter @filter-employees="filter" @remove-filters="removeFilters" />
+        <TheFilter @filter-employees="filter" @remove-filters="removeFilters" data-test="filter" />
       </BaseCard>
       <BaseCard>
         <TheEmployeesTable :employees="filterEmployee(nameFilter, surnameFilter, positionFilter)"
-          :areCheckboxesDisabled="areCheckboxesDisabled" />
+          :areCheckboxesDisabled="areCheckboxesDisabled" data-test="employees-table" />
       </BaseCard>
       <TheButtonsSection @remove-employees="removeEmployees" @open-employee-form="openForm"
-        :amountOfSelectedItems="selectedListItemIds.length" :isFormOpen="isFormOpen" />
+        :amountOfSelectedItems="selectedListItemIds.length" :isFormOpen="isFormOpen" data-test="buttons-section" />
     </div>
     <BaseCard class="form-container" v-if="isFormOpen">
       <EmployeeForm :mode="employeeFormMode" :editedEmployee @add-employee="addEmployee" @edit-employee="editEmployee"
@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-import { useEmployeeStore } from '@/stores/employeeStore.js';
+import { useEmployeesStore } from '@/stores/employeesStore.js';
 import { storeToRefs } from 'pinia';
 import { ref, computed, provide } from 'vue';
 import BaseCard from '../UI/BaseCard.vue';
@@ -29,7 +29,7 @@ import TheEmployeesTable from '../employeesTable/TheEmployeesTable.vue';
 import TheButtonsSection from '../buttonsSection/TheButtonsSection.vue';
 import EmployeeForm from '../employeeForm/EmployeeForm.vue';
 
-const employees = useEmployeeStore();
+const employees = useEmployeesStore();
 const { filterEmployee } = storeToRefs(employees);
 const nameFilter = ref('');
 const surnameFilter = ref('');
