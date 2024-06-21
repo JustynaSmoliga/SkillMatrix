@@ -7,15 +7,18 @@
                         </div>
                         <div>
                                 <label for="name" class="filter__label"> BY NAME: </label>
-                                <input type="text" id="name" class="filter__input" v-model="name">
+                                <input type="text" id="name" class="filter__input" v-model="name"
+                                        data-test="filter-name-input">
                         </div>
                         <div>
                                 <label for="surname" class="filter__label"> BY SURNAME: </label>
-                                <input type="text" id="surname" class="filter__input" v-model="surname">
+                                <input type="text" id="surname" class="filter__input" v-model="surname"
+                                        data-test="filter-surname-input">
                         </div>
                         <div>
                                 <label for="position" class="filter__label"> BY POSITION: </label>
-                                <select id="position" class="filter__input" v-model="position">
+                                <select id="position" class="filter__input" v-model="position"
+                                        data-test="filter-position-select">
                                         <option value=''></option>
                                         <option value="developer">Developer</option>
                                         <option value="tester">Tester</option>
@@ -25,7 +28,7 @@
                         </div>
                 </div>
                 <div class="filter__buttons">
-                        <BaseButton mode="btn--primary">Filter</BaseButton>
+                        <BaseButton mode="btn--primary" data-test="filter-btn">Filter</BaseButton>
                         <BaseButton mode="btn--secondary" type="button" @click="removeFilters">Remove filters
                         </BaseButton>
                 </div>
