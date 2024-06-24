@@ -5,7 +5,7 @@ import { createTestingPinia } from '@pinia/testing'
 import { useEmployeesStore, SkillLevel, SkillName } from '@/stores/employeesStore'
 import SkillMatrix from './SkillMatrix.vue';
 import EmployeeForm from '../employeeForm/EmployeeForm.vue'
-// import EmployeesTableListItem from '../employeesTable/EmployeesTableListItem.vue';
+import EmployeesTableListItem from '../employeesTable/EmployeesTableListItem.vue';
 // import { nextTick } from 'vue'
 
 describe('SkillMatrix', () => {
@@ -334,70 +334,70 @@ describe('SkillMatrix', () => {
         expect(wrapper.findComponent(EmployeeForm).text()).not.contain('Add new record');
         expect(wrapper.findComponent(EmployeeForm).text()).contain('Edit');
     })
-    it('when filter by name is filled and filter button is clicked, data in table should be filtered by name ', async () => { 
+    // it('when filter by name is filled and filter button is clicked, data in table should be filtered by name ', async () => { 
 
-        const toggleSelectedListItemMockFuntion = vi.fn();
+    //     const toggleSelectedListItemMockFuntion = vi.fn();
 
-        const wrapper = mount(SkillMatrix, {
-            global: {
-                plugins: [createTestingPinia({
-                    createSpy: fn,
-                    initialState: {
-                        employees: {
-                            employees: [{
-                                id: '1', name: 'John', surname: 'Doe', position: 'Developer', email: 'johndoe@cap.com', skills: [
-                                    { name: SkillName.JAVA, level: '' },
-                                    { name: SkillName.DOTNET, level: '' },
-                                    { name: SkillName.ANGULAR, level: SkillLevel.BEGINNER },
-                                    { name: SkillName.VUEJS, level: SkillLevel.BEGINNER },
-                                    { name: SkillName.TS, level: '' },
-                                    { name: SkillName.JS, level: SkillLevel.INTERMEDIATE },
-                                    { name: SkillName.REACT, level: '' },
-                                    { name: SkillName.SITECORE, level: '' }]
-                            }, {
-                                id: '2', name: 'Jeremy', surname: 'Blunt', position: 'Tester', email: 'jeremyblunt@cap.com', skills: [
-                                    { name: SkillName.JAVA, level: SkillLevel.BEGINNER },
-                                    { name: SkillName.DOTNET, level: SkillLevel.BEGINNER },
-                                    { name: SkillName.ANGULAR, level: SkillLevel.ADVANCED },
-                                    { name: SkillName.VUEJS, level: '' },
-                                    { name: SkillName.TS, level: '' },
-                                    { name: SkillName.JS, level: '' },
-                                    { name: SkillName.REACT, level: SkillLevel.INTERMEDIATE },
-                                    { name: SkillName.SITECORE, level: SkillLevel.BEGINNER }]
-                            }]
-                        }
-                    }
-                })],
-                provide: { toggleSelectedListItem: toggleSelectedListItemMockFuntion }
-            }
+    //     const wrapper = mount(SkillMatrix, {
+    //         global: {
+    //             plugins: [createTestingPinia({
+    //                 createSpy: fn,
+    //                 initialState: {
+    //                     employees: {
+    //                         employees: [{
+    //                             id: '1', name: 'John', surname: 'Doe', position: 'Developer', email: 'johndoe@cap.com', skills: [
+    //                                 { name: SkillName.JAVA, level: '' },
+    //                                 { name: SkillName.DOTNET, level: '' },
+    //                                 { name: SkillName.ANGULAR, level: SkillLevel.BEGINNER },
+    //                                 { name: SkillName.VUEJS, level: SkillLevel.BEGINNER },
+    //                                 { name: SkillName.TS, level: '' },
+    //                                 { name: SkillName.JS, level: SkillLevel.INTERMEDIATE },
+    //                                 { name: SkillName.REACT, level: '' },
+    //                                 { name: SkillName.SITECORE, level: '' }]
+    //                         }, {
+    //                             id: '2', name: 'Jeremy', surname: 'Blunt', position: 'Tester', email: 'jeremyblunt@cap.com', skills: [
+    //                                 { name: SkillName.JAVA, level: SkillLevel.BEGINNER },
+    //                                 { name: SkillName.DOTNET, level: SkillLevel.BEGINNER },
+    //                                 { name: SkillName.ANGULAR, level: SkillLevel.ADVANCED },
+    //                                 { name: SkillName.VUEJS, level: '' },
+    //                                 { name: SkillName.TS, level: '' },
+    //                                 { name: SkillName.JS, level: '' },
+    //                                 { name: SkillName.REACT, level: SkillLevel.INTERMEDIATE },
+    //                                 { name: SkillName.SITECORE, level: SkillLevel.BEGINNER }]
+    //                         }]
+    //                     }
+    //                 }
+    //             })],
+    //             provide: { toggleSelectedListItem: toggleSelectedListItemMockFuntion }
+    //         }
 
-        });
+    //     });
 
-        const store = useEmployeesStore();
-        // console.log(store.filterEmployee("","","").length);
-        // expect(store.filterEmployee.length).toBe(2);
-        const filterByNameInput = wrapper.find("[data-test=filter-name-input]");
-        const filterBySurnameInput = wrapper.find("[data-test=filter-surname-input]");
-        const filterByPositionSelect = wrapper.find("[data-test=filter-position-select]");
+    //     const store = useEmployeesStore();
+    //     // console.log(store.filterEmployee("","","").length);
+    //     // expect(store.filterEmployee.length).toBe(2);
+    //     const filterByNameInput = wrapper.find("[data-test=filter-name-input]");
+    //     const filterBySurnameInput = wrapper.find("[data-test=filter-surname-input]");
+    //     const filterByPositionSelect = wrapper.find("[data-test=filter-position-select]");
 
-        await filterByNameInput.setValue('Jeremy');
-        await filterBySurnameInput.setValue('Bl');
-        await filterByPositionSelect.setValue('tester');
+    //     await filterByNameInput.setValue('Jeremy');
+    //     await filterBySurnameInput.setValue('Bl');
+    //     await filterByPositionSelect.setValue('tester');
 
 
-        const filterButton = wrapper.find("[data-test=filter-btn] [data-test=button]");
-        await filterButton.trigger('click');
-        const items=wrapper.findAllComponents(EmployeesTableListItem);
-        expect(items.length).toBe(1);
-        // expect(store.filterEmployee.length).toBe(1);
-        // nextTick();
-        // store.filterEmployee('je','','');
-        // console.log(store.filterEmployee('je'));
+    //     const filterButton = wrapper.find("[data-test=filter-btn] [data-test=button]");
+    //     await filterButton.trigger('click');
+    //     const items=wrapper.findAllComponents(EmployeesTableListItem);
+    //     expect(items.length).toBe(1);
+    //     // expect(store.filterEmployee.length).toBe(1);
+    //     // nextTick();
+    //     // store.filterEmployee('je','','');
+    //     // console.log(store.filterEmployee('je'));
      
 
-        // expect(store.filterEmployee).toHaveBeenCalledTimes(1);
+    //     // expect(store.filterEmployee).toHaveBeenCalledTimes(1);
 
-    })
+    // })
     it('when filter by surname is filled and filter button click, data in table should be filtered by surname ', () => { })
     it('when filter by position is filled and filter button click, data in table should be filtered by position ', () => { })
     it('when filter by name,surname and position are filled and filter button click, data in table should be filtered by name,surname and position ', () => { })

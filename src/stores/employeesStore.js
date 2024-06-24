@@ -38,7 +38,7 @@ export const useEmployeesStore = defineStore('employees', () => {
       { name: SkillName.SITECORE, level: '' }]
   },
   {
-    id: '2', name: 'John', surname: 'Dlunt', position: 'Tester', email: 'emilyblunt@cap.com', skills: [
+    id: '2', name: 'John', surname: 'Dlunt', position: 'Tester', email: 'johndlunt@cap.com', skills: [
       { name: SkillName.JAVA, level: SkillLevel.BEGINNER },
       { name: SkillName.DOTNET, level: SkillLevel.BEGINNER },
       { name: SkillName.ANGULAR, level: '' },
