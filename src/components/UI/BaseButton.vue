@@ -36,6 +36,7 @@ const props = defineProps({ type: String, mode: String, isDisabled: Boolean });
     background-color: $color-primary;
     border: 1.5px solid $color-primary;
     color: $white;
+    transition: background-color 0.3s ease;
 
     &:hover,
     &:active {
@@ -55,6 +56,7 @@ const props = defineProps({ type: String, mode: String, isDisabled: Boolean });
     color: $color-primary-darker;
 
     border: 1.5px solid $color-primary;
+    transition: all 0.3s ease;
 
     &:hover,
     &:active {

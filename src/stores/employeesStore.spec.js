@@ -55,6 +55,7 @@ describe.concurrent('Employees Store - filter employees by', () => {
              ['','d','tester',[secondEmployee]],
              ['','d','tester',[secondEmployee]],
              ['j','d','developer',[firstEmployee]],
+             ['','','analyst',[]],
              ['Mark','Ant','developer',[]]])('((%s,%s,%s) should return -> %o)', (name, surname, position, expected) => {
 
         const emloyeesStore = useEmployeesStore();

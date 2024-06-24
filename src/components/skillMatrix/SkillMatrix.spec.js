@@ -281,6 +281,29 @@ describe('SkillMatrix', () => {
         expect(wrapper.findComponent(EmployeeForm).exists()).toBe(true);
         expect(wrapper.findComponent(EmployeeForm).text()).contain('Add new record')
         expect(wrapper.findComponent(EmployeeForm).text()).not.contain('Edit')
+        // const nameInput = wrapper.find("[data-test=form-name-input]");
+        // const surnameInput = wrapper.find("[data-test=form-surname-input]");
+        // const emailInput = wrapper.find("[data-test=form-email-input]");
+        // const positionSelect = wrapper.find("[data-test=form-position-select]");
+        // const submitButton = wrapper.find("[data-test=form-btn-submit] [data-test=button]");
+        
+
+        // const skillSelect = wrapper.find("[data-test=form-position-select]");
+
+        // await nameInput.setValue('Mark');
+        // await surnameInput.setValue('Anthony');
+        // await emailInput.setValue('ma@cap.com');
+        // await positionSelect.setValue('tester');
+        // // await submitButton.trigger('click');
+        // await wrapper.findComponent(EmployeeForm).vm.$emit('submit.prevent');
+
+        // expect(store.addEmployee).toHaveBeenCalled();
+        // expect(wrapper.emitted()).toHaveProperty('add-employee');
+
+        
+
+        
+        
 
     })
     it('when EDIT button is clicked, employee form in EDIT MODE should open', async() => { 

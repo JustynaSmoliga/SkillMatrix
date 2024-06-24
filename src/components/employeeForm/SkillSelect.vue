@@ -48,6 +48,8 @@ function toggleChecked() {
   background-color: $white;
   color: $color-primary-darker;
   border: 1.5px solid $color-primary;
+  transition: background-color 0.2s ease;
+
 
   &:hover,
   &:active {

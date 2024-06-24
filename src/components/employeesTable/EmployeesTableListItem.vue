@@ -45,12 +45,12 @@ function toggleItemSelected() {
 $background-color-item: #eff6fd;
 
 .employee-table__item {
+    transition: background-color 0.2s ease;
 
     &:hover {
         background-color: $background-color-item;
         cursor: pointer;
     }
-
 }
 
 td {

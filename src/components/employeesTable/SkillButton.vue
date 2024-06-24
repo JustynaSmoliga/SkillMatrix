@@ -29,6 +29,8 @@ const props = defineProps({ name: String, level: String });
     cursor: pointer;
     height: fit-content;
     width: fit-content;
+    transition: all 0.3s ease;
+
 
     &:hover,
     &:active {
@@ -50,6 +52,8 @@ const props = defineProps({ name: String, level: String });
       bottom: 85%;
       left: 50%;
       margin-left: -70px;
+      transition: all 30ms ease;
+
     }
   }
 

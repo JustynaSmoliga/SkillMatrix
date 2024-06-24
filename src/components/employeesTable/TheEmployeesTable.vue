@@ -36,7 +36,7 @@ table {
   border-collapse: collapse;
   box-shadow: $box-shadow;
   width: 100%;
-  table-layout: fixed
+  table-layout: fixed;
 }
 
 tr {

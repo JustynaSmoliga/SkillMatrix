@@ -9,18 +9,21 @@
         <div class="form__controls">
             <div class="form__control">
                 <label for="name" class="form__label"> Name: </label>
-                <input type="text" id="name" class="form__input" v-model="name" v-bind="nameAttrs">
-                <p>{{ errors.name }}</p>
+                <input type="text" id="name" class="form__input" v-model="name" v-bind="nameAttrs"
+                    data-test="form-name-input">
+                <p v-if="errors.name && meta.touched" class="form__error-msg">{{ errors.name }}</p>
             </div>
             <div class="form__control">
                 <label for="surname" class="form__label"> Surname: </label>
-                <input type="text" id="surname" class="form__input" v-model="surname" v-bind="surnameAttrs">
-                <p>{{ errors.surname }}</p>
+                <input type="text" id="surname" class="form__input" v-model="surname" v-bind="surnameAttrs"
+                    data-test="form-surname-input">
+                <p v-if="errors.surname && meta.touched" class="form__error-msg">{{ errors.surname }}</p>
 
             </div>
             <div class="form__control">
                 <label for="position" class="form__label"> Position: </label>
-                <select id="position" class="form__input" v-model="position" v-bind="positionAttrs">
+                <select id="position" class="form__input" v-model="position" v-bind="positionAttrs"
+                    data-test="form-position-select">
                     <option value="developer">Developer</option>
                     <option value="tester">Tester</option>
                     <option value="project manager">Project Manager</option>
@@ -29,21 +32,24 @@
             </div>
             <div class="form__control">
                 <label for="email" class="form__label"> Email: </label>
-                <input type="email" id="email" class="form__input" v-model="email" v-bind="emailAttrs">
-                <p>{{ errors.email }}</p>
+                <input type="email" id="email" class="form__input" v-model="email" v-bind="emailAttrs"
+                    data-test="form-email-input">
+                <p v-if="errors.email && meta.touched" class="form__error-msg">{{ errors.email }}</p>
             </div>
             <div class="form__skills">
                 <SkillSelect v-for="(field, idx) in fields" name="skills" :key="field.key" @skill-selected="selectSkill"
-                    v-model:level="field.value.level" :nameOfSkill="field.value.name" :id="idx"></SkillSelect>
+                    v-model:level="field.value.level" :nameOfSkill="field.value.name" :id="idx"
+                    data-test="form-skill-select"></SkillSelect>
             </div>
         </div>
         <div class="form__buttons">
-            <BaseButton :type="submit" mode="btn--primary">{{ props.mode }}</BaseButton>
-            <BaseButton :type="button" mode="btn--secondary" @click="emit('close-form')">Close</BaseButton>
+            <BaseButton mode="btn--primary" data-test="form-btn-submit">{{ props.mode }}</BaseButton>
+            <BaseButton :type="button" mode="btn--secondary" @click="emit('close-form')" data-test="form-btn-close">
+                Close</BaseButton>
         </div>
     </form>
-    <pre>VALUES: {{ values }}</pre>
-    <pre>ERRORS: {{ errors }}</pre>
+    <!-- <pre>VALUES: {{ values }}</pre>
+    <pre>ERRORS: {{ errors }}</pre> -->
 </template>
 
 <script setup>
@@ -57,7 +63,7 @@ import SkillSelect from './SkillSelect.vue';
 const props = defineProps({ mode: String, editedEmployee: Object });
 const emit = defineEmits(['close-form', 'add-employee', 'edit-employee']);
 
-const { values, errors, defineField, handleSubmit } = useForm({
+const { values, errors, defineField, handleSubmit, meta } = useForm({
     validationSchema: toTypedSchema(yup.object({
         name: yup.string().required().min(3),
         surname: yup.string().required().min(3),
@@ -101,7 +107,7 @@ function selectSkill(skillName, selectedValue, id) {
 
 <style scoped lang="scss">
 @import '../../assets/scss/_variables.scss';
-
+$error-message-color: #cc0000;
 
 
 .form {
@@ -145,6 +151,18 @@ function selectSkill(skillName, selectedValue, id) {
             background-color: $input-focus-background-color;
             color: $color-primary-darker;
 
+        }
+    }
+
+    &__error-msg {
+        color: $error-message-color;
+        font-size: 0.8rem;
+        align-self: flex-start;
+        padding-left: 1rem;
+        padding-bottom: 1rem;
+
+        &::first-letter {
+            text-transform: uppercase;
         }
     }
 

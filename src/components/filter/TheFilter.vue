@@ -6,18 +6,18 @@
                                 <!-- <div class="filter__arrow"></div> -->
                         </div>
                         <div>
-                                <label for="name" class="filter__label"> BY NAME: </label>
-                                <input type="text" id="name" class="filter__input" v-model="name"
+                                <label for="filter-name" class="filter__label"> BY NAME: </label>
+                                <input type="text" id="filter-name" class="filter__input" v-model="name"
                                         data-test="filter-name-input">
                         </div>
                         <div>
-                                <label for="surname" class="filter__label"> BY SURNAME: </label>
-                                <input type="text" id="surname" class="filter__input" v-model="surname"
+                                <label for="filter-surname" class="filter__label"> BY SURNAME: </label>
+                                <input type="text" id="filter-surname" class="filter__input" v-model="surname"
                                         data-test="filter-surname-input">
                         </div>
                         <div>
-                                <label for="position" class="filter__label"> BY POSITION: </label>
-                                <select id="position" class="filter__input" v-model="position"
+                                <label for="filter-position" class="filter__label"> BY POSITION: </label>
+                                <select id="filter-position" class="filter__input" v-model="position"
                                         data-test="filter-position-select">
                                         <option value=''></option>
                                         <option value="developer">Developer</option>

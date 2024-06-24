@@ -36,5 +36,6 @@ $container-color: #F1F6FF;
   width: 100%;
   height: 100vh;
   background-color: $container-color;
+  overflow-y: scroll;
 }
 </style>
