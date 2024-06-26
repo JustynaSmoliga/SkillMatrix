@@ -38,18 +38,27 @@
             </div>
             <div class="form__skills">
                 <SkillSelect v-for="(field, idx) in fields" name="skills" :key="field.key" @skill-selected="selectSkill"
-                    v-model:level="field.value.level" :nameOfSkill="field.value.name" :id="idx"
+                    v-model:level="field.value.level" :nameOfSkill="field.value.name" :id="idx.toString()"
                     data-test="form-skill-select"></SkillSelect>
             </div>
         </div>
         <div class="form__buttons">
             <BaseButton mode="btn--primary" data-test="form-btn-submit">{{ props.mode }}</BaseButton>
-            <BaseButton :type="button" mode="btn--secondary" @click="emit('close-form')" data-test="form-btn-close">
+            <BaseButton :type="button" mode="btn--secondary" @click.prevent="openModalWindow"
+                data-test="form-btn-close">
                 Close</BaseButton>
         </div>
     </form>
-    <!-- <pre>VALUES: {{ values }}</pre>
-    <pre>ERRORS: {{ errors }}</pre> -->
+    <ModalWindow v-if="isModalWindowOpen" @close="closeModalWindow">
+        <template #default>
+            <p>Are you really want to close form?</p>
+            <p> This action is irreversible, all data will lost.</p>
+        </template>
+        <template #actions>
+            <BaseButton mode="btn--primary" @click='closeForm'>Yes</BaseButton>
+            <BaseButton mode="btn--secondary" @click='closeModalWindow'>No</BaseButton>
+        </template>
+    </ModalWindow>
 </template>
 
 <script setup>
@@ -59,11 +68,16 @@ import * as yup from 'yup';
 import { employeeSkills } from '@/stores/employeesStore';
 import BaseButton from '../UI/BaseButton.vue';
 import SkillSelect from './SkillSelect.vue';
+import ModalWindow from '../UI/ModalWindow.vue';
+import { ref } from 'vue';
+
 
 const props = defineProps({ mode: String, editedEmployee: Object });
-const emit = defineEmits(['close-form', 'add-employee', 'edit-employee']);
+const emit = defineEmits(['add-employee', 'edit-employee', 'close-form']);
+const isModalWindowOpen = ref(false);
 
-const { values, errors, defineField, handleSubmit, meta } = useForm({
+
+const { errors, defineField, handleSubmit, meta } = useForm({
     validationSchema: toTypedSchema(yup.object({
         name: yup.string().required().min(3),
         surname: yup.string().required().min(3),
@@ -101,6 +115,18 @@ function submitEditEmployeeForm(values) {
 function selectSkill(skillName, selectedValue, id) {
     const selectedSkillObject = { name: skillName, level: selectedValue };
     update(id, selectedSkillObject);
+}
+
+function closeForm() {
+    emit('close-form');
+}
+
+function openModalWindow() {
+    isModalWindowOpen.value = true;
+}
+
+function closeModalWindow() {
+    isModalWindowOpen.value = false;
 }
 
 </script>
