@@ -66,9 +66,7 @@ import { useForm, useFieldArray } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
 import { employeeSkills } from '@/stores/employeesStore';
-import BaseButton from '../UI/BaseButton.vue';
 import SkillSelect from './SkillSelect.vue';
-import ModalWindow from '../UI/ModalWindow.vue';
 import { ref } from 'vue';
 
 

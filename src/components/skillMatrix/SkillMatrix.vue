@@ -23,7 +23,6 @@
 import { useEmployeesStore } from '@/stores/employeesStore.js';
 import { storeToRefs } from 'pinia';
 import { ref, computed, provide } from 'vue';
-import BaseCard from '../UI/BaseCard.vue';
 import TheFilter from '../filter/TheFilter.vue';
 import TheEmployeesTable from '../employeesTable/TheEmployeesTable.vue';
 import TheButtonsSection from '../buttonsSection/TheButtonsSection.vue';

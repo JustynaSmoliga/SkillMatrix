@@ -38,7 +38,6 @@
 </template>
 
 <script setup>
-import BaseButton from '../UI/BaseButton.vue';
 import { ref } from 'vue';
 
 const name = ref('');

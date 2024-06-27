@@ -24,8 +24,7 @@
 </template>
 
 <script setup>
-import BaseButton from '../UI/BaseButton.vue';
-import ModalWindow from '../UI/ModalWindow.vue';
+
 import { ref } from 'vue';
 
 const emit = defineEmits(['remove-employees', 'open-employee-form']);
